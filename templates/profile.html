@@ -1,4 +1,3 @@
-}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,19 +111,18 @@
                 labels: sessionDates,
                 datasets: [{
                     label: 'Session Count',
-                    data: {{ session_counts | tojson }
-        },
-            borderColor: '#007bff',
-            fill: false
+                    data: {{ session_counts | tojson }},
+                    borderColor: '#007bff',
+                    fill: false
                 }]
             },
-        options: {
-            responsive: true,
+            options: {
+                responsive: true,
                 scales: {
-                x: { title: { display: true, text: 'Date' } },
-                y: { title: { display: true, text: 'Count' } }
+                    x: { title: { display: true, text: 'Date' } },
+                    y: { title: { display: true, text: 'Count' } }
+                }
             }
-        }
         });
 
         const totalTimeChart = new Chart(document.getElementById('totalTimeChart'), {
@@ -133,18 +131,17 @@
                 labels: sessionDates,
                 datasets: [{
                     label: 'Total Time (seconds)',
-                    data: {{ session_total_times | tojson }
-        },
-            backgroundColor: '#28a745'
+                    data: {{ session_total_times | tojson }},
+                    backgroundColor: '#28a745'
                 }]
             },
-        options: {
-            responsive: true,
+            options: {
+                responsive: true,
                 scales: {
-                x: { title: { display: true, text: 'Date' } },
-                y: { title: { display: true, text: 'Total Time (seconds)' } }
+                    x: { title: { display: true, text: 'Date' } },
+                    y: { title: { display: true, text: 'Total Time (seconds)' } }
+                }
             }
-        }
         });
 
         const averageSpeedChart = new Chart(document.getElementById('averageSpeedChart'), {
@@ -153,19 +150,18 @@
                 labels: sessionDates,
                 datasets: [{
                     label: 'Average Speed (seconds/rep)',
-                    data: {{ session_average_speeds | tojson }
-        },
-            borderColor: '#dc3545',
-            fill: false
+                    data: {{ session_average_speeds | tojson }},
+                    borderColor: '#dc3545',
+                    fill: false
                 }]
             },
-        options: {
-            responsive: true,
+            options: {
+                responsive: true,
                 scales: {
-                x: { title: { display: true, text: 'Date' } },
-                y: { title: { display: true, text: 'Average Speed (seconds/rep)' } }
+                    x: { title: { display: true, text: 'Date' } },
+                    y: { title: { display: true, text: 'Average Speed (seconds/rep)' } }
+                }
             }
-        }
         });
     </script>
 </body>
