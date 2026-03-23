@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Exercise Entry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4ff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #dbe4ff;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 40px rgba(66, 105, 225, 0.12);
+        }
+
+        /* Header */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .header-icon {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, #4269e1, #6a8eff);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 6px 16px rgba(66,105,225,0.3);
+            flex-shrink: 0;
+        }
+        .card-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1f36;
+        }
+        .card-header p {
+            font-size: 13px;
+            color: #8b95b0;
+            margin-top: 3px;
+        }
+
+        /* Form */
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5175;
+            margin-bottom: 7px;
+            letter-spacing: 0.2px;
+        }
+        label .req { color: #4269e1; }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            background: #f7f9ff;
+            border: 1.5px solid #dbe4ff;
+            border-radius: 10px;
+            color: #1a1f36;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            appearance: none;
+        }
+        select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b95b0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+        input:focus, select:focus {
+            border-color: #4269e1;
+            box-shadow: 0 0 0 3px rgba(66,105,225,0.12);
+            background: #fff;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Speed hint */
+        .speed-block {
+            margin: 4px 0 24px;
+        }
+        #speed-preview {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4269e1;
+            min-height: 20px;
+            margin-bottom: 6px;
+        }
+        .speed-hint {
+            font-size: 11.5px;
+            color: #8b95b0;
+            background: #f0f4ff;
+            border-left: 3px solid #4269e1;
+            padding: 8px 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid #eaeeff;
+            margin: 24px 0;
+        }
+
+        /* Submit */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4269e1, #6a8eff);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+            box-shadow: 0 6px 18px rgba(66,105,225,0.3);
+        }
+        .btn-submit:hover   { opacity: 0.88; transform: translateY(-1px); }
+        .btn-submit:active  { transform: translateY(0); }
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* Back link */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #8b95b0;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #4269e1; }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #fff;
+            border: 1.5px solid #4269e1;
+            color: #1a1f36;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+            z-index: 999;
+            box-shadow: 0 6px 24px rgba(66,105,225,0.15);
+        }
+        #toast.show   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast.error  { border-color: #ef4444; color: #ef4444; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        <div class="header-icon">✏️</div>
+        <div>
+            <h1>Manual Exercise Entry</h1>
+            <p>Log your workout without the camera</p>
+        </div>
+    </div>
+
+    <form id="entry-form">
+
+        <div class="form-group">
+            <label for="exercise_name">Exercise Type <span class="req">*</span></label>
+            <select id="exercise_name" name="exercise_name" required>
+                <option value="" disabled selected>Select an exercise…</option>
+                <option value="Knee Raises">🦵 Knee Raises</option>
+                <option value="Squats">🏋️ Squats</option>
+                <option value="Lunges">🚶 Lunges</option>
+                <option value="Leg Press">🦿 Leg Press</option>
+                <option value="Calf Raises">🦶 Calf Raises</option>
+                <option value="Hip Abduction">🏃 Hip Abduction</option>
+                <option value="Wall Sit">🧱 Wall Sit</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="form-group" style="margin-bottom:0">
+                <label for="reps">Repetitions <span class="req">*</span></label>
+                <input type="number" id="reps" name="reps"
+                       min="1" max="999" placeholder="e.g. 15" required>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+                <label for="total_time">Total Time (sec) <span class="req">*</span></label>
+                <input type="number" id="total_time" name="total_time"
+                       min="1" step="0.1" placeholder="e.g. 45" required>
+            </div>
+        </div>
+
+        <div class="speed-block">
+            <div id="speed-preview"></div>
+            <div class="speed-hint">
+                Optimal: <strong>1.0–2.5s/rep</strong> for knee raises &amp; lunges ·
+                <strong>2.0–4.0s/rep</strong> for squats
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="submit-btn">💾 Save Session</button>
+    </form>
+
+    <a href="/profile" class="back-link">← Back to Profile</a>
+</div>
+
+<div id="toast"></div>
+
+<script>
+    const repsInput    = document.getElementById('reps');
+    const timeInput    = document.getElementById('total_time');
+    const speedPreview = document.getElementById('speed-preview');
+
+    function updateSpeed() {
+        const r = parseFloat(repsInput.value);
+        const t = parseFloat(timeInput.value);
+        if (r > 0 && t > 0) {
+            const spd = (t / r).toFixed(2);
+            let icon = '✅', note = 'Great pace!';
+            if (spd < 1.0)       { icon = '⚡'; note = 'Too fast — slow down'; }
+            else if (spd > 4.0)  { icon = '🐢'; note = 'Too slow — speed up'; }
+            speedPreview.textContent = `${icon}  ${spd}s/rep — ${note}`;
+        } else {
+            speedPreview.textContent = '';
+        }
+    }
+
+    repsInput.addEventListener('input', updateSpeed);
+    timeInput.addEventListener('input', updateSpeed);
+
+    function showToast(msg, isError = false) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className   = isError ? 'error' : '';
+        void t.offsetWidth;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    document.getElementById('entry-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.disabled    = true;
+        btn.textContent = '⏳ Saving…';
+
+        try {
+            const res  = await fetch('/manual_entry', { method: 'POST', body: new FormData(this) });
+            const data = await res.json();
+            if (data.success) {
+                showToast('✅ Session saved!');
+                this.reset();
+                speedPreview.textContent = '';
+                setTimeout(() => window.location.href = '/profile', 1600);
+            } else {
+                showToast('❌ ' + (data.error || 'Unknown error'), true);
+            }
+        } catch {
+            showToast('❌ Network error. Try again.', true);
+        } finally {
+            btn.disabled    = false;
+            btn.textContent = '💾 Save Session';
+        }
+    });
+</script>
+</body>
+</html>
